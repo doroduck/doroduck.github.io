@@ -157,6 +157,30 @@ code {
   margin-top: 26px;
 }
 
+/* 首页分区的“查看更多” */
+.section-more {
+  margin: 10px 0 26px;
+}
+
+.section-more a {
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.section-more a:hover {
+  text-decoration: underline;
+}
+
+.privacy-note {
+  margin-top: 10px;
+  color: rgba(15, 23, 42, 0.65);
+  font-size: 14px;
+  padding: 10px 12px;
+  border: 1px dashed rgba(2, 6, 23, 0.16);
+  border-radius: 12px;
+  background: rgba(2, 6, 23, 0.02);
+}
+
 /* 作品集卡片 */
 .projects-grid {
   margin-top: 16px;

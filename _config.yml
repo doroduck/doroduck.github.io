@@ -15,7 +15,6 @@ timezone: Asia/Shanghai
 header_pages:
   - index.md
   - projects.md
-  - about.md
 
 # 文章页显示摘要
 show_excerpts: true

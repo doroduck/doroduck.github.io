@@ -18,7 +18,7 @@
 她只需要用 GitHub 网页端编辑 Markdown 文件：
 
 - 修改首页：编辑 `index.md`
-- 修改“关于我”：编辑 `about.md`
+- （可选）隐私说明：编辑 `about.md`（页面标题是“隐私与说明”，不包含个人信息）
 - 写一篇新文章：在 `_posts/` 里新增文件，命名形如：`YYYY-MM-DD-标题.md`
 - 新增一个作品：在 `_projects/` 里新增文件（参考 `projects.md` 底部的模板）
 
