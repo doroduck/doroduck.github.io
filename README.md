@@ -20,6 +20,7 @@
 - 修改首页：编辑 `index.md`
 - 修改“关于我”：编辑 `about.md`
 - 写一篇新文章：在 `_posts/` 里新增文件，命名形如：`YYYY-MM-DD-标题.md`
+- 新增一个作品：在 `_projects/` 里新增文件（参考 `projects.md` 底部的模板）
 
 编辑步骤（GitHub 网页）：
 1. 打开文件 → 点铅笔图标 **Edit**

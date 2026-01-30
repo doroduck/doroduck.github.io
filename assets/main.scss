@@ -156,3 +156,59 @@ code {
 .post-list-heading {
   margin-top: 26px;
 }
+
+/* 作品集卡片 */
+.projects-grid {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+@media (max-width: 720px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.project-card {
+  display: block;
+  padding: 16px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.project-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 26px rgba(2, 6, 23, 0.06);
+}
+
+.project-card__title {
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+
+.project-card__summary {
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.project-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.project-tag {
+  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(2, 6, 23, 0.02);
+  color: rgba(15, 23, 42, 0.7);
+}
