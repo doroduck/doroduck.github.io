@@ -4,6 +4,12 @@
 
 如果你想用“现成模板”，先看这里的选型与限制说明：[TEMPLATE_OPTIONS.md](TEMPLATE_OPTIONS.md)
 
+> 你可以把它理解成：
+> - `index.md`：首页
+> - `_posts/`：文章目录
+> - `assets/`：图片/样式/脚本
+> - `/archive/`：按月份归档 + 搜索
+
 ## 如何上线（一次性设置）
 
 1. 打开仓库的 **Settings → Pages**
@@ -15,23 +21,134 @@
 
 ## 她如何更新内容（完全不需要编程）
 
-她只需要用 GitHub 网页端编辑 Markdown 文件：
+最常用的是：改标题简介、换头像、写文章、放图片。
 
-- 修改首页：编辑 `index.md`
-- （可选）隐私说明：编辑 `about.md`（页面标题是“隐私与说明”，不包含个人信息）
-- 写一篇新文章：在 `_posts/` 里新增文件，命名形如：`YYYY-MM-DD-标题.md`
-- 修改头像：替换 `assets/img/avatar.svg`（也可以换成 `avatar.png` 然后同步改 `index.md` 里的图片路径）
-- 按月份归档/搜索：访问 `/archive/`（文件是 `archive.md`）
+### 通用编辑方法（GitHub 网页端）
 
-编辑步骤（GitHub 网页）：
-1. 打开文件 → 点铅笔图标 **Edit**
-2. 改完点 **Commit changes**
-3. 等 1-3 分钟刷新网站就生效
+1. 打开仓库 → 点开要改的文件
+2. 点击右上角铅笔图标 **Edit**
+3. 修改后点击 **Commit changes**
+4. 等 1-3 分钟刷新网站生效
+
+> 小技巧：如果她担心写坏，可以选择 **Create a new branch for this commit and start a pull request**（更安全，可回滚）。
+
+---
+
+### 1）修改网站标题/一句话简介（推荐先改这个）
+
+文件：`_config.yml`
+
+找到并修改：
+
+- `title:`（网站标题）
+- `description:`（首页会显示的一句话）
+
+建议：不要写真实姓名/学校/单位/手机号等。
+
+---
+
+### 2）修改首页内容
+
+文件：`index.md`
+
+首页会显示：头像 + 标题 + 简介 + 最新文章列表。
+通常不需要改代码，只需要改 `_config.yml` 里的 `title/description` 就行。
+
+---
+
+### 3）换头像（Profile icon）
+
+默认头像文件：`assets/img/avatar.svg`
+
+替换方式：
+
+- 直接把 `assets/img/avatar.svg` 替换成新的（同名）文件
+
+如果她想用 PNG/JPG：
+
+1. 把图片放到 `assets/img/avatar.png`（或 `.jpg`）
+2. 打开 `index.md`，把头像那行改成：
+	- `src="/assets/img/avatar.png"`
+
+---
+
+### 4）写一篇新文章（最常用）
+
+文章放在目录：`_posts/`
+
+文件名格式必须是：
+
+`YYYY-MM-DD-文章标题.md`
+
+例如：
+
+`2026-01-30-my-first-post.md`
+
+文章开头需要保留这段“头信息”（不要删 `---`）：
+
+```yaml
+---
+layout: post
+title: "文章标题"
+date: 2026-01-30 10:00:00 +0800
+categories: [notes]
+---
+```
+
+下面就可以正常写正文了。
+
+Markdown 常用写法：
+
+- 小标题：`## 标题`
+- 列表：`- 一条`
+- 加粗：`**加粗**`
+- 链接：`[文字](https://example.com)`
+
+---
+
+### 5）放图片/插图
+
+推荐把图片放到：`assets/img/`
+
+然后在文章里引用：
+
+`![](/assets/img/图片文件名.jpg)`
+
+注意：路径以 `/assets/...` 开头，大小写要完全一致。
+
+---
+
+### 6）按月份归档 + 搜索（标题 + 正文）
+
+归档页地址：`/archive/`
+
+功能：
+
+- 按月份下拉筛选
+- 搜索框支持“标题 + 正文”搜索
+- 搜索结果会按相关性排序（标题命中更靠前）
+
+相关文件（一般不需要改）：
+
+- `archive.md`（页面）
+- `search.json`（全文索引，由 Jekyll 构建生成）
+- `assets/js/archive.js`（检索逻辑）
+
+---
+
+### 7）（可选）隐私与说明页
+
+文件：`about.md`（页面地址 `/about/`）
+
+这个页面默认不包含任何个人信息，只写隐私原则。
+如果她不需要，可以把 `about.md` 删除（或者把内容留空也可以）。
 
 ## 常见问题
 
 - 图片放哪？建议放到 `assets/img/`，然后在 Markdown 里用：`![](/assets/img/xxx.jpg)`
 - 想绑定自定义域名？把域名写进 `CNAME` 文件（根目录一个纯文本文件）。
+- 为什么改了没生效？GitHub Pages 构建有延迟，通常 1-3 分钟；也可能是缓存，强刷一下（Cmd+Shift+R）。
+- 想“撤回一次修改”？去仓库的 **Commits** 找到那次提交，回滚或再提交一次修正即可。
 
 ## 模板/主题怎么换？
 
