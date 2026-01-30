@@ -26,6 +26,85 @@
       return s.split(/\s+/).filter(Boolean);
     }
 
+    function countOccurrences(haystack, needle) {
+      if (!haystack || !needle) return 0;
+      var count = 0;
+      var idx = 0;
+      while (true) {
+        idx = haystack.indexOf(needle, idx);
+        if (idx === -1) break;
+        count += 1;
+        idx += needle.length;
+      }
+      return count;
+    }
+
+    function scoreDoc(terms, title, content) {
+      var t = normalize(title);
+      var c = normalize(content);
+      var score = 0;
+
+      for (var i = 0; i < terms.length; i++) {
+        var term = terms[i];
+
+        var inTitle = t.indexOf(term) !== -1;
+        var inContent = c.indexOf(term) !== -1;
+        if (!inTitle && !inContent) continue;
+
+        // 标题命中权重更高
+        if (inTitle) {
+          score += 200;
+          if (t.indexOf(term) === 0) score += 80; // 前缀命中加分
+          score += countOccurrences(t, term) * 40;
+        }
+
+        if (inContent) {
+          score += 60;
+          score += countOccurrences(c, term) * 10;
+        }
+      }
+
+      // 轻微偏好短标题（更像精确匹配）
+      if (t && t.length) score += Math.max(0, 20 - Math.min(20, t.length / 6));
+      return score;
+    }
+
+    function sortItemsInPlace(terms) {
+      if (!terms || !terms.length) return;
+
+      // 按每个月份的 <ul> 内进行排序，保持“按月分组”结构
+      var uls = Array.prototype.slice.call(document.querySelectorAll('.archive-list'));
+      uls.forEach(function (ul) {
+        var children = Array.prototype.slice.call(ul.querySelectorAll('.archive-item'));
+        if (!children.length) return;
+
+        children.sort(function (a, b) {
+          var aHidden = a.style.display === 'none';
+          var bHidden = b.style.display === 'none';
+          if (aHidden !== bHidden) return aHidden ? 1 : -1; // 可见的排在前
+
+          if (aHidden && bHidden) return 0;
+
+          var aDoc = getDoc(a);
+          var bDoc = getDoc(b);
+          var aScore = scoreDoc(terms, aDoc.title, aDoc.content);
+          var bScore = scoreDoc(terms, bDoc.title, bDoc.content);
+
+          if (aScore !== bScore) return bScore - aScore;
+
+          // 分数相同按日期新到旧
+          var ad = (a.getAttribute('data-date') || '').toString();
+          var bd = (b.getAttribute('data-date') || '').toString();
+          if (ad === bd) return 0;
+          return ad < bd ? 1 : -1;
+        });
+
+        children.forEach(function (li) {
+          ul.appendChild(li);
+        });
+      });
+    }
+
     function getDoc(li) {
       var url = li.getAttribute('data-url');
       if (url && indexByUrl[url]) return indexByUrl[url];
@@ -67,9 +146,13 @@
       });
 
       if (terms.length || m) {
-        results.textContent = '当前显示 ' + shown + ' 篇文章';
+        results.textContent = '当前显示 ' + shown + ' 篇文章' + (terms.length ? '（按相关性排序）' : '');
       } else {
         results.textContent = '';
+      }
+
+      if (terms.length) {
+        sortItemsInPlace(terms);
       }
 
       // 同时隐藏空的月份分组
