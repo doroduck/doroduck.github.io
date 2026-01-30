@@ -2,6 +2,8 @@
 
 这是一个基于 **GitHub Pages（Jekyll）** 的静态网站仓库：不需要写代码、也不需要服务器。
 
+如果你想用“现成模板”，先看这里的选型与限制说明：[TEMPLATE_OPTIONS.md](TEMPLATE_OPTIONS.md)
+
 ## 如何上线（一次性设置）
 
 1. 打开仓库的 **Settings → Pages**
