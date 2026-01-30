@@ -11,7 +11,7 @@ ref: home
     <img class="avatar" src="/assets/img/avatar.svg" alt="Profile icon" />
     <div class="hero-text">
       <h1>{{ site.title }}</h1>
-      <p>記事のメモと記録（個人情報は公開しません）</p>
+      <p>記録</p>
     </div>
   </div>
 </div>
@@ -33,4 +33,4 @@ ref: home
 {% endfor %}
 </ul>
 
-<p class="privacy-note">注意：本サイトでは実名・連絡先などの個人情報を掲載しません。</p>
+<p class="privacy-note">注意：本サイトでは実名などの個人情報を掲載しません。</p>
