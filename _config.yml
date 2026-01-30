@@ -1,0 +1,26 @@
+# GitHub Pages (Jekyll) config
+# 修改这里就能改站点标题/简介等
+
+title: "DoroDuck"
+description: "一个简单好维护的个人网站（GitHub Pages）"
+
+# GitHub Pages 支持的官方主题之一
+theme: minima
+
+# 站点语言/时区（便于文章日期）
+lang: zh-CN
+timezone: Asia/Shanghai
+
+# 顶部导航（主题会读取 header_pages）
+header_pages:
+  - index.md
+  - about.md
+
+# 文章页显示摘要
+show_excerpts: true
+
+# 可选：社交链接（按需填）
+minima:
+  social_links:
+    - { platform: github,  user_url: "https://github.com/" }
+    - { platform: twitter, user_url: "https://twitter.com/" }
