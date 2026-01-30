@@ -5,7 +5,7 @@ permalink: /archive/
 ---
 
 <div class="archive-tools">
-  <input id="archiveSearch" class="archive-search" type="search" placeholder="搜索文章标题…" autocomplete="off" />
+  <input id="archiveSearch" class="archive-search" type="search" placeholder="搜索标题或正文…" autocomplete="off" />
   <select id="archiveMonth" class="archive-month">
     <option value="">按月份筛选（全部）</option>
     {% assign groups = site.posts | group_by_exp: "post", "post.date | date: '%Y-%m'" %}
@@ -27,7 +27,7 @@ permalink: /archive/
   <h2 id="m-{{ group.name }}" class="archive-month-title">{{ month_label }}</h2>
   <ul class="archive-list">
     {% for post in group.items %}
-      <li class="archive-item" data-title="{{ post.title | escape }}" data-month="{{ group.name }}" data-date="{{ post.date | date: '%Y-%m-%d' }}" data-content="{{ post.content | strip_html | strip_newlines | escape }}">
+      <li class="archive-item" data-title="{{ post.title | escape }}" data-url="{{ post.url | relative_url }}" data-month="{{ group.name }}" data-date="{{ post.date | date: '%Y-%m-%d' }}">
         <a class="archive-link" href="{{ post.url | relative_url }}">{{ post.title }}</a>
         <span class="archive-date">{{ post.date | date: '%Y-%m-%d' }}</span>
       </li>
@@ -35,4 +35,7 @@ permalink: /archive/
   </ul>
 {% endfor %}
 
+<script>
+  window.__SEARCH_INDEX_URL__ = "{{ '/search.json' | relative_url }}";
+</script>
 <script src="/assets/js/archive.js"></script>

@@ -12,6 +12,9 @@
 
     if (!input || !monthSelect || !items.length) return;
 
+    // 可选的全文索引（由 Jekyll 生成 search.json）
+    var indexByUrl = Object.create(null);
+
     function normalize(s) {
       return (s || '').toString().toLowerCase().trim();
     }
@@ -23,6 +26,16 @@
       return s.split(/\s+/).filter(Boolean);
     }
 
+    function getDoc(li) {
+      var url = li.getAttribute('data-url');
+      if (url && indexByUrl[url]) return indexByUrl[url];
+      // 回退：至少保证标题可搜
+      return {
+        title: li.getAttribute('data-title') || '',
+        content: ''
+      };
+    }
+
     function applyFilter() {
       var qRaw = input.value;
       var terms = splitTerms(qRaw);
@@ -30,8 +43,9 @@
       var shown = 0;
 
       items.forEach(function (li) {
-        var title = normalize(li.getAttribute('data-title'));
-        var content = normalize(li.getAttribute('data-content'));
+        var doc = getDoc(li);
+        var title = normalize(doc.title);
+        var content = normalize(doc.content);
         var month = normalize(li.getAttribute('data-month'));
         var ok = true;
 
@@ -77,6 +91,34 @@
     input.addEventListener('input', applyFilter);
     monthSelect.addEventListener('change', applyFilter);
 
-    applyFilter();
+    function loadIndexThenInit() {
+      var url = (window.__SEARCH_INDEX_URL__ || '/search.json').toString();
+      // 如果是相对路径，转成绝对 URL（避免 baseurl/路径问题）
+      var absUrl = url.indexOf('http') === 0 ? url : new URL(url, window.location.origin).toString();
+
+      fetch(absUrl, { cache: 'no-store' })
+        .then(function (r) {
+          if (!r.ok) throw new Error('index http ' + r.status);
+          return r.json();
+        })
+        .then(function (arr) {
+          if (!Array.isArray(arr)) return;
+          arr.forEach(function (p) {
+            if (!p || !p.url) return;
+            indexByUrl[p.url] = {
+              title: p.title || '',
+              content: p.content || ''
+            };
+          });
+        })
+        .catch(function () {
+          // 索引失败就回退到标题检索，不阻断页面
+        })
+        .finally(function () {
+          applyFilter();
+        });
+    }
+
+    loadIndexThenInit();
   });
 })();
