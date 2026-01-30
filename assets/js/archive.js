@@ -16,24 +16,43 @@
       return (s || '').toString().toLowerCase().trim();
     }
 
+    function splitTerms(q) {
+      var s = normalize(q);
+      if (!s) return [];
+      // 支持多关键词：空格分隔（中文没空格则就是一个词）
+      return s.split(/\s+/).filter(Boolean);
+    }
+
     function applyFilter() {
-      var q = normalize(input.value);
+      var qRaw = input.value;
+      var terms = splitTerms(qRaw);
       var m = normalize(monthSelect.value);
       var shown = 0;
 
       items.forEach(function (li) {
         var title = normalize(li.getAttribute('data-title'));
+        var content = normalize(li.getAttribute('data-content'));
         var month = normalize(li.getAttribute('data-month'));
         var ok = true;
 
         if (m && month !== m) ok = false;
-        if (q && title.indexOf(q) === -1) ok = false;
+
+        if (terms.length) {
+          // 所有关键词都要命中（命中标题或正文均可）
+          for (var i = 0; i < terms.length; i++) {
+            var t = terms[i];
+            if (title.indexOf(t) === -1 && content.indexOf(t) === -1) {
+              ok = false;
+              break;
+            }
+          }
+        }
 
         li.style.display = ok ? '' : 'none';
         if (ok) shown += 1;
       });
 
-      if (q || m) {
+      if (terms.length || m) {
         results.textContent = '当前显示 ' + shown + ' 篇文章';
       } else {
         results.textContent = '';

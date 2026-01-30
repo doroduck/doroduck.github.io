@@ -27,7 +27,7 @@ permalink: /archive/
   <h2 id="m-{{ group.name }}" class="archive-month-title">{{ month_label }}</h2>
   <ul class="archive-list">
     {% for post in group.items %}
-      <li class="archive-item" data-title="{{ post.title | escape }}" data-month="{{ group.name }}" data-date="{{ post.date | date: '%Y-%m-%d' }}">
+      <li class="archive-item" data-title="{{ post.title | escape }}" data-month="{{ group.name }}" data-date="{{ post.date | date: '%Y-%m-%d' }}" data-content="{{ post.content | strip_html | strip_newlines | escape }}">
         <a class="archive-link" href="{{ post.url | relative_url }}">{{ post.title }}</a>
         <span class="archive-date">{{ post.date | date: '%Y-%m-%d' }}</span>
       </li>

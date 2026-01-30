@@ -11,10 +11,6 @@ title: 首页
 			<p>{{ site.description }}</p>
 		</div>
 	</div>
-	<div class="hero-links">
-		<a class="btn btn-primary" href="/archive/">按月份归档</a>
-		<a class="btn btn-ghost" href="/">最新文章</a>
-	</div>
 </div>
 
 ## 最新文章
