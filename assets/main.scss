@@ -55,6 +55,28 @@ body {
   border: 1px solid var(--border);
 }
 
+.hero-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.hero-text h1 {
+  margin: 0 0 6px;
+}
+
+.hero-text p {
+  margin: 0;
+}
+
 .hero h1 {
   margin: 0 0 10px;
   font-size: 34px;
@@ -181,58 +203,67 @@ code {
   background: rgba(2, 6, 23, 0.02);
 }
 
-/* 作品集卡片 */
-.projects-grid {
-  margin-top: 16px;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-}
-
-@media (max-width: 720px) {
-  .projects-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.project-card {
-  display: block;
-  padding: 16px 16px;
-  border-radius: 16px;
-  border: 1px solid var(--border);
-  background: var(--card);
-  text-decoration: none;
-  color: inherit;
-  transition: transform 120ms ease, box-shadow 120ms ease;
-}
-
-.project-card:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 12px 26px rgba(2, 6, 23, 0.06);
-}
-
-.project-card__title {
-  font-weight: 800;
-  letter-spacing: -0.01em;
-  margin-bottom: 6px;
-}
-
-.project-card__summary {
-  color: var(--muted);
-  margin-bottom: 10px;
-}
-
-.project-card__meta {
+/* 归档页（按月+搜索） */
+.archive-tools {
+  margin: 12px 0 18px;
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 10px;
 }
 
-.project-tag {
-  font-size: 12px;
-  padding: 3px 8px;
-  border-radius: 999px;
+.archive-search,
+.archive-month {
+  padding: 10px 12px;
+  border-radius: 12px;
   border: 1px solid var(--border);
-  background: rgba(2, 6, 23, 0.02);
-  color: rgba(15, 23, 42, 0.7);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.archive-search {
+  min-width: min(520px, 100%);
+}
+
+.archive-results {
+  margin: 0 0 16px;
+  color: rgba(15, 23, 42, 0.65);
+}
+
+.archive-month-title {
+  margin-top: 22px;
+}
+
+.archive-list {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--card);
+}
+
+.archive-item {
+  padding: 12px 14px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid rgba(2, 6, 23, 0.06);
+}
+
+.archive-item:last-child {
+  border-bottom: 0;
+}
+
+.archive-link {
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.archive-link:hover {
+  text-decoration: underline;
+}
+
+.archive-date {
+  color: rgba(15, 23, 42, 0.55);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }

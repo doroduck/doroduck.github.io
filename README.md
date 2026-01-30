@@ -20,7 +20,8 @@
 - 修改首页：编辑 `index.md`
 - （可选）隐私说明：编辑 `about.md`（页面标题是“隐私与说明”，不包含个人信息）
 - 写一篇新文章：在 `_posts/` 里新增文件，命名形如：`YYYY-MM-DD-标题.md`
-- 新增一个作品：在 `_projects/` 里新增文件（参考 `projects.md` 底部的模板）
+- 修改头像：替换 `assets/img/avatar.svg`（也可以换成 `avatar.png` 然后同步改 `index.md` 里的图片路径）
+- 按月份归档/搜索：访问 `/archive/`（文件是 `archive.md`）
 
 编辑步骤（GitHub 网页）：
 1. 打开文件 → 点铅笔图标 **Edit**

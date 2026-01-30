@@ -14,16 +14,10 @@ timezone: Asia/Shanghai
 # 顶部导航（主题会读取 header_pages）
 header_pages:
   - index.md
-  - projects.md
+  - archive.md
 
 # 文章页显示摘要
 show_excerpts: true
-
-# 作品集集合：在 `_projects/` 里新增 markdown 就会生成页面
-collections:
-  projects:
-    output: true
-    permalink: /projects/:name/
 
 # 可选：社交链接（按需填）
 minima:
