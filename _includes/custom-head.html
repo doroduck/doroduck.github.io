@@ -1,0 +1,44 @@
+<script>
+  (function () {
+    var current = {{ page.lang | default: "zh" | jsonify }};
+
+    var url = {{ page.url | jsonify }};
+    var zhUrl = url;
+    var jaUrl = (url.indexOf('/ja/') === 0) ? url : ('/ja' + url);
+
+    if (url.indexOf('/ja/') === 0) {
+      zhUrl = url.replace(/^\/ja\//, '/');
+      if (zhUrl === '') zhUrl = '/';
+    }
+
+    // 若页面/文章定义了 ref，则优先找对应语言的“同一篇”
+    {% if page.ref %}
+      {% assign ref_posts = site.posts | where: "ref", page.ref %}
+      {% assign zh_post = ref_posts | where: "lang", "zh" | first %}
+      {% assign ja_post = ref_posts | where: "lang", "ja" | first %}
+
+      {% assign ref_pages = site.pages | where: "ref", page.ref %}
+      {% assign zh_page = ref_pages | where: "lang", "zh" | first %}
+      {% assign ja_page = ref_pages | where: "lang", "ja" | first %}
+
+      {% if zh_post %}
+        zhUrl = {{ zh_post.url | jsonify }};
+      {% elsif zh_page %}
+        zhUrl = {{ zh_page.url | jsonify }};
+      {% endif %}
+
+      {% if ja_post %}
+        jaUrl = {{ ja_post.url | jsonify }};
+      {% elsif ja_page %}
+        jaUrl = {{ ja_page.url | jsonify }};
+      {% endif %}
+    {% endif %}
+
+    window.__LANG__ = {
+      current: current,
+      zh: zhUrl,
+      ja: jaUrl
+    };
+  })();
+</script>
+<script defer src="{{ '/assets/js/lang-switch.js' | relative_url }}"></script>

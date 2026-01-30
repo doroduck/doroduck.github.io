@@ -1,7 +1,7 @@
 ---
 ---
 [
-{% assign posts = site.posts | where: "lang", "zh" %}
+{% assign posts = site.posts | where: "lang", "ja" %}
 {% for post in posts %}
   {
     "title": {{ post.title | jsonify }},

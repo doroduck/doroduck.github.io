@@ -2,6 +2,8 @@
 layout: page
 title: 隐私与说明
 permalink: /about/
+lang: zh
+ref: about
 ---
 
 这个页面用于说明本站的内容边界与隐私原则。

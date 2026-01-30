@@ -1,16 +1,16 @@
 ---
 layout: page
-title: 归档
-permalink: /archive/
-lang: zh
+title: アーカイブ
+permalink: /ja/archive/
+lang: ja
 ref: archive
 ---
 
 <div class="archive-tools">
-  <input id="archiveSearch" class="archive-search" type="search" placeholder="搜索标题或正文…" autocomplete="off" />
+  <input id="archiveSearch" class="archive-search" type="search" placeholder="タイトル／本文を検索…" autocomplete="off" />
   <select id="archiveMonth" class="archive-month">
-    <option value="">按月份筛选（全部）</option>
-    {% assign posts = site.posts | where: "lang", "zh" %}
+    <option value="">月別（すべて）</option>
+    {% assign posts = site.posts | where: "lang", "ja" %}
     {% assign groups = posts | group_by_exp: "post", "post.date | date: '%Y-%m'" %}
     {% for g in groups %}
       {% assign parts = g.name | split: '-' %}
@@ -22,7 +22,7 @@ ref: archive
 
 <div id="archiveResults" class="archive-results"></div>
 
-{% assign posts = site.posts | where: "lang", "zh" %}
+{% assign posts = site.posts | where: "lang", "ja" %}
 {% assign grouped = posts | group_by_exp: "post", "post.date | date: '%Y-%m'" %}
 {% for group in grouped %}
   {% assign parts = group.name | split: '-' %}
@@ -40,6 +40,6 @@ ref: archive
 {% endfor %}
 
 <script>
-  window.__SEARCH_INDEX_URL__ = "{{ '/search.json' | relative_url }}";
+  window.__SEARCH_INDEX_URL__ = "{{ '/search-ja.json' | relative_url }}";
 </script>
 <script src="/assets/js/archive.js"></script>

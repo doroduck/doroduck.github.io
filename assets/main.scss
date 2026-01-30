@@ -34,6 +34,28 @@ body {
   backdrop-filter: saturate(180%) blur(10px);
 }
 
+/* 语言切换（中｜日） */
+.lang-switch {
+  margin-left: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.lang-switch a {
+  text-decoration: none;
+  color: rgba(15, 23, 42, 0.72);
+}
+
+.lang-switch a[aria-current="page"] {
+  color: var(--brand);
+}
+
+.lang-sep {
+  margin: 0 6px;
+  color: rgba(15, 23, 42, 0.35);
+}
+
 .site-title,
 .site-title:visited {
   font-weight: 800;
@@ -122,6 +144,12 @@ a:hover {
 .post-link {
   font-weight: 750;
   letter-spacing: -0.01em;
+}
+
+.post-excerpt {
+  margin-top: 6px;
+  color: rgba(15, 23, 42, 0.72);
+  font-size: 14px;
 }
 
 /* 文章正文排版（minima: .post-content） */

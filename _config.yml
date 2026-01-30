@@ -13,11 +13,19 @@ timezone: Asia/Shanghai
 
 # 顶部导航（主题会读取 header_pages）
 header_pages:
-  - index.md
   - archive.md
+  - about.md
 
 # 文章页显示摘要
 show_excerpts: true
+
+# 默认语言（新文章如果不写 lang，会默认当作中文）
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      lang: zh
 
 # 可选：社交链接（按需填）
 minima:
