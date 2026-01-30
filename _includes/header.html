@@ -1,0 +1,63 @@
+<header class="site-header" role="banner">
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="{{ '/' | relative_url }}">{{ site.title | escape }}</a>
+
+    {%- comment -%}
+      语言切换（中｜日）：
+      - 默认按路径切换（/ <-> /ja/）
+      - 如果页面/文章有 ref，则优先匹配同 ref 的另一语言版本
+    {%- endcomment -%}
+    {% assign zh_url = page.url %}
+    {% assign ja_url = page.url %}
+
+    {% if page.lang == 'ja' %}
+      {% assign zh_url = page.url | replace_first: '/ja/', '/' %}
+      {% assign ja_url = page.url %}
+      {% if zh_url == '' %}{% assign zh_url = '/' %}{% endif %}
+    {% else %}
+      {% assign zh_url = page.url %}
+      {% assign ja_url = '/ja' | append: page.url %}
+      {% if ja_url == '/ja' %}{% assign ja_url = '/ja/' %}{% endif %}
+    {% endif %}
+
+    {% if page.ref %}
+      {% assign ref_posts = site.posts | where: 'ref', page.ref %}
+      {% assign zh_post = ref_posts | where: 'lang', 'zh' | first %}
+      {% assign ja_post = ref_posts | where: 'lang', 'ja' | first %}
+
+      {% assign ref_pages = site.pages | where: 'ref', page.ref %}
+      {% assign zh_page = ref_pages | where: 'lang', 'zh' | first %}
+      {% assign ja_page = ref_pages | where: 'lang', 'ja' | first %}
+
+      {% if zh_post %}
+        {% assign zh_url = zh_post.url %}
+      {% elsif zh_page %}
+        {% assign zh_url = zh_page.url %}
+      {% endif %}
+
+      {% if ja_post %}
+        {% assign ja_url = ja_post.url %}
+      {% elsif ja_page %}
+        {% assign ja_url = ja_page.url %}
+      {% endif %}
+    {% endif %}
+
+    <span class="lang-switch">
+      <a href="{{ zh_url | relative_url }}" {% if page.lang != 'ja' %}aria-current="page"{% endif %}>中</a>
+      <span class="lang-sep">｜</span>
+      <a href="{{ ja_url | relative_url }}" {% if page.lang == 'ja' %}aria-current="page"{% endif %}>日</a>
+    </span>
+
+    <nav class="site-nav">
+      <div class="trigger">
+        {% if page.lang == 'ja' %}
+          <a class="page-link" href="{{ '/ja/archive/' | relative_url }}">アーカイブ</a>
+          <a class="page-link" href="{{ '/ja/about/' | relative_url }}">プライバシー</a>
+        {% else %}
+          <a class="page-link" href="{{ '/archive/' | relative_url }}">归档</a>
+          <a class="page-link" href="{{ '/about/' | relative_url }}">隐私</a>
+        {% endif %}
+      </div>
+    </nav>
+  </div>
+</header>
