@@ -69,11 +69,17 @@
   }
 
   ready(function () {
-    var cfg = window.__LANG__ || { current: 'zh', zh: '/', ja: '/ja/' };
+    // 防止重复插入（例如 head/footer 都加载了脚本）
+    if (document.querySelector('.lang-switch')) return;
+
+    var cfg = window.__LANG__ || { current: (window.location.pathname.indexOf('/ja/') === 0 ? 'ja' : 'zh'), zh: '/', ja: '/ja/' };
 
     // 1) 插入“中｜日”切换器
+    // minima 的导航结构：.site-nav 里有 .trigger 才会显示链接；插入到 .trigger 最稳。
+    var trigger = document.querySelector('.site-nav .trigger');
     var nav = document.querySelector('.site-nav');
-    var target = nav || document.querySelector('.site-header .wrapper') || document.querySelector('.site-header') || document.body;
+    var headerWrap = document.querySelector('.site-header .wrapper');
+    var target = trigger || nav || headerWrap || document.querySelector('.site-header') || document.body;
     if (target) target.appendChild(buildSwitcher(cfg));
 
     // 2) 自动改写导航链接（让日文页面的导航跳到 /ja/...）
