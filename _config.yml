@@ -11,6 +11,9 @@ theme: minima
 lang: zh-CN
 timezone: Asia/Shanghai
 
+# 允许发布未来日期的文章（默认 Jekyll 会隐藏 future posts）
+future: true
+
 # 顶部导航（主题会读取 header_pages）
 header_pages:
   - archive.md
